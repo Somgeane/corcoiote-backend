@@ -1,7 +1,35 @@
 import http from 'node:http';
 
+const users = [
+	{
+		name: 'Cristiano Ronaldo',
+		status: true,
+	},
+	{
+		name: ' Lionel Messi',
+		status: true,
+	},
+
+	{
+		name: 'Neymar Junior',
+		status: false,
+	},
+];
+
 http
-	.createServer(() => {
-		console.log('knock on the door!');
+	.createServer((request, response) => {
+		if (request.url === '/users' && request.method === 'GET') {
+			response.writeHead(200, {
+				'content-type': 'application/json',
+			});
+
+			response.end(JSON.stringify(users));
+			return;
+		} else {
+			response.writeHead(404, {
+				'content-type': 'text/plain',
+			});
+			response.end('not found!');
+		}
 	})
-	.listen(3000);
+	.listen(Number(process.env.PORT));
