@@ -1,5 +1,6 @@
+import { NotFoundError } from '../errors/index.ts';
 import { customers } from '../mocks/customer.mock.ts';
-import type { Createcustumer, Customer, UpdateCustomer } from '../types.ts';
+import type { CreateCustumer, Customer, UpdateCustomer } from '../types.ts';
 
 export function findAllCustomers(): Customer[] {
 	return customers;
@@ -10,12 +11,12 @@ export function findCustomerById(id: number): Customer {
 		return customer.id === id;
 	});
 	if (!customer) {
-		throw new Error('Cliente não encontrado.');
+		throw new NotFoundError('Cliente não encontrado.');
 	}
 	return customer;
 }
 
-export function insertCustomer({ name, email }: Createcustumer): Customer {
+export function insertCustomer({ name, email }: CreateCustumer): Customer {
 	const id = customers[customers.length - 1].id;
 
 	const customer: Customer = {
@@ -37,7 +38,7 @@ export function modifyCustomer(
 	});
 
 	if (!customer) {
-		throw new Error('Cliente não encotrado.');
+		throw new NotFoundError('Cliente não encotrado.');
 	}
 	if (name) customer.name = name;
 	if (email) customer.email = email;
@@ -50,7 +51,7 @@ export function removeCustomer(id: number): void {
 		return customer.id === id;
 	});
 	if (index === -1) {
-		throw new Error('Cliente não encotrado.');
+		throw new NotFoundError('Cliente não encotrado.');
 	}
 	customers.splice(index, 1);
 }
