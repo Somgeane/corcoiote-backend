@@ -1,4 +1,5 @@
 import express from 'express';
+import errorHandler from './middlewares/errorHandler.ts';
 import requestLogger from './middlewares/requestLogger.ts';
 import CustomersRouter from './routes/customers.routes.ts';
 
@@ -15,5 +16,7 @@ app.use((_request, response) => {
 		message: 'Not found!',
 	});
 });
+
+app.use(errorHandler);
 
 app.listen(Number(process.env.PORT));
