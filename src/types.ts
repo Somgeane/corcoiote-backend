@@ -4,7 +4,3 @@ export type Customer = {
 	email: string;
 	status: boolean;
 };
-
-export type CreateCustumer = Omit<Customer, 'id' | 'status'>;
-type CustomerWithoutId = Omit<Customer, 'id'>;
-export type UpdateCustomer = Partial<CustomerWithoutId>;
