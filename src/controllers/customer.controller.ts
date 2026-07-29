@@ -1,7 +1,11 @@
 import type { Request, Response } from 'express';
 import { customers } from '../mocks/customer.mock.ts';
+import type {
+	CreateCustomer,
+	UpdateCustomer,
+} from '../schemas/customer.schema.ts';
 import * as CustomerService from '../services/customer.service.ts';
-import type { CreateCustumer, UpdateCustomer } from '../types.ts';
+import type { Customer } from '../types.ts';
 
 export function getAllCustomers(request: Request, response: Response) {
 	const customers = CustomerService.findAllCustomers();
@@ -17,7 +21,7 @@ export function getCustomersById(request: Request, response: Response) {
 }
 
 export function createCustomers(request: Request, response: Response) {
-	const { name, email } = request.body as CreateCustumer;
+	const { name, email } = request.body as CreateCustomer;
 	const customer = CustomerService.insertCustomer({ name, email });
 	response.status(201).json(customer);
 }
