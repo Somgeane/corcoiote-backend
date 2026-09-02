@@ -8,10 +8,10 @@ import type { Customer } from '../types.ts';
 
 export async function findAllCustomers(): Promise<Customer[]> {
 	const custumers = await prisma.customer.findMany();
-	return customers;
+	return custumers;
 }
 
-export async function findCustomerById(id: number): Promise<Customer[]> {
+export async function findCustomerById(id: number): Promise<Customer> {
 	const customer = await prisma.customer.findUnique({ where: { id } });
 
 	if (!customer) {
@@ -23,11 +23,13 @@ export async function findCustomerById(id: number): Promise<Customer[]> {
 export async function insertCustomer({
 	name,
 	email,
-}: CreateCustomer): Promise<Customer[]> {
+	imageUrl,
+}: CreateCustomer): Promise<Customer> {
 	const customer = await prisma.customer.create({
 		data: {
 			name,
 			email,
+			imageUrl,
 		},
 	});
 
@@ -55,7 +57,7 @@ export async function modifyCustomer(
 
 	if (name) customer.name = name;
 	if (email) customer.email = email;
-	if (status !== undefined) customer.status = status;
+	if (imageUrl) customer.imageUrl = imageUrl;
 	return customer;
 }
 
