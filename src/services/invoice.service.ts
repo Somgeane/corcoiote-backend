@@ -1,4 +1,3 @@
-import { InvoiceScalarFieldEnum } from '../../prisma/generated/internal/prismaNamespace.ts';
 import { NotFoundError } from '../errors/index.ts';
 import prisma from '../lib/prisma.ts';
 import type {
@@ -23,7 +22,7 @@ export async function findInvoiceById(id: number) {
 	});
 
 	if (!invoice) {
-		throw new NotFoundError('Fatura com id ${id} não encontrada.');
+		throw new NotFoundError(`Fatura com id ${id} não encontrada.`);
 	}
 }
 
@@ -42,6 +41,7 @@ export async function insertInvoice({
 		},
 		include: { customer: true },
 	});
+	return invoice;
 }
 
 export async function modifyInvoice(
